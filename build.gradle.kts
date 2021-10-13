@@ -4,6 +4,7 @@ plugins {
     id("org.springframework.boot") version "2.5.5"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     id("java")
+    id("org.liquibase.gradle") version "2.0.4"
 }
 
 group = "bym"

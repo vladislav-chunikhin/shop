@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    container_name: shop-db
+    restart: always
+    environment:
+      POSTGRES_USER: bym
+      POSTGRES_PASSWORD: bym
+      POSTGRES_DB: shop
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pg-data-volume:/var/lib/postgresql/data

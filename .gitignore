@@ -9,3 +9,4 @@ build
 /gradle
 /gradlew
 /gradlew.bat
+/deploy/pg-data-volume/
