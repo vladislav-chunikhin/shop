@@ -1,5 +1,6 @@
 package bym.shop.service;
 
+import bym.shop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +8,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final ProductService productService;
+    private final ProductRepository productRepository;
 
 }

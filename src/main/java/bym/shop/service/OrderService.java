@@ -1,5 +1,6 @@
 package bym.shop.service;
 
+import bym.shop.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +8,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class OrderService {
 
-    private final OrderService orderService;
+    private final OrderRepository orderRepository;
 
 }
