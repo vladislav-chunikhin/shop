@@ -1,7 +1,7 @@
 version: '3.9'
 
 services:
-  db:
+  shop-db:
     image: postgres
     container_name: shop-db
     restart: always
@@ -13,3 +13,29 @@ services:
       - "5432:5432"
     volumes:
       - ./pg-data-volume:/var/lib/postgresql/data
+
+  elasticsearch:
+    image: elasticsearch:7.14.1
+    container_name: elasticsearch
+    restart: always
+    environment:
+      - node.name=elasticsearch
+      - discovery.type=single-node
+      - cluster.name=shop-elasticsearch
+    volumes:
+        - ./elasticsearch-data-volume:/usr/share/elasticsearch/data
+    ports:
+      - "9300:9300"
+      - "9200:9200"
+
+  logstash:
+    image: logstash:7.14.1
+    container_name: logstash
+    volumes:
+      - ./logstash/config-dir:/usr/share/logstash/config-dir
+      - ./logstash/drivers/:/usr/share/logstash/drivers
+    command: logstash -f logstash.conf
+    links:
+      - elasticsearch
+    depends_on:
+      - elasticsearch

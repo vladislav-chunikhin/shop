@@ -19,6 +19,7 @@ dependencies {
     // Spring boot
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
 
     // Database
     implementation("org.liquibase:liquibase-core")
@@ -30,6 +31,9 @@ dependencies {
     // Other
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
+
+    // Documentation
+    implementation("org.springdoc:springdoc-openapi-ui:1.5.11")
 }
 
 tasks.withType<Test> {
