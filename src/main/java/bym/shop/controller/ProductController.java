@@ -13,5 +13,7 @@ import static bym.shop.constants.BaseURL.PRODUCT_BASE_URL;
 @Tag(name = "Product API")
 @RequiredArgsConstructor
 public class ProductController {
+
     private final ProductService productService;
+
 }

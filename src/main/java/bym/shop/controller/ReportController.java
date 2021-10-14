@@ -14,5 +14,7 @@ import static bym.shop.constants.BaseURL.REPORT_BASE_URL;
 @Tag(name = "Report API")
 @RequiredArgsConstructor
 public class ReportController {
+
     private final ReportService reportService;
+
 }

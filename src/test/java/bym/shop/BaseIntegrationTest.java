@@ -1,10 +1,16 @@
 package bym.shop;
 
+import bym.shop.dto.RequestDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
@@ -14,9 +20,51 @@ import org.springframework.test.context.ActiveProfiles;
 )
 public class BaseIntegrationTest {
 
+    @Autowired
+    private MockMvc mockMvc;
+
     protected ObjectMapper mapper = new ObjectMapper();
 
-    @Test
-    public void loadContext() {
+    protected ResultActions executePost(final String url, final RequestDto request) throws Exception {
+        return mockMvc.perform(
+                MockMvcRequestBuilders
+                        .post(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request))
+        );
     }
+
+    protected ResultActions executePut(final String url, final RequestDto request) throws Exception {
+        return mockMvc.perform(
+                MockMvcRequestBuilders
+                        .put(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(request))
+        );
+    }
+
+    protected ResultActions executeGet(final String url) throws Exception {
+        return mockMvc.perform(
+                MockMvcRequestBuilders
+                        .get(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+    }
+
+    protected ResultActions executeDelete(final String url) throws Exception {
+        return mockMvc.perform(
+                MockMvcRequestBuilders
+                        .get(url)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        );
+    }
+
+    protected void checkForSuccess(final ResultActions result) throws Exception {
+        result.andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
 }

@@ -13,5 +13,7 @@ import static bym.shop.constants.BaseURL.CATEGORY_BASE_URL;
 @Tag(name = "Category API")
 @RequiredArgsConstructor
 public class CategoryController {
+
     private final CategoryService categoryService;
+
 }

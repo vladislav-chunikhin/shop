@@ -1,0 +1,1 @@
+DELETE FROM amazon.users WHERE id IS NOT NULL;
