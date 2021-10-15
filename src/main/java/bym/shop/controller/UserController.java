@@ -5,12 +5,12 @@ import bym.shop.dto.UserResponseDto;
 import bym.shop.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.util.UUID;
 
 import static bym.shop.constants.BaseURL.USER_BASE_URL;
 
@@ -23,8 +23,20 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserResponseDto createUser(@Valid @RequestBody final UserRequestDto request) {
-        return userService.createUser(request);
+    public UserResponseDto create(@Valid @RequestBody final UserRequestDto request) {
+        return userService.create(request);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@Valid @RequestBody final UserRequestDto request, @PathVariable final String id) {
+        userService.update(UUID.fromString(id), request);
+    }
+
+    @GetMapping("/{id}")
+    public UserResponseDto get(@PathVariable final String id) {
+        return userService.get(UUID.fromString(id));
     }
 
 }
+

@@ -1,6 +1,7 @@
 package bym.shop;
 
 import bym.shop.dto.RequestDto;
+import bym.shop.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -22,6 +23,9 @@ public class BaseIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    protected UserRepository userRepository;
 
     protected ObjectMapper mapper = new ObjectMapper();
 
@@ -69,6 +73,14 @@ public class BaseIntegrationTest {
 
     protected void checkForClientError(final ResultActions result) throws Exception {
         result.andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
+
+    protected void checkForNoContent(final ResultActions result) throws Exception {
+        result.andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
+
+    protected void checkForNotFound(final ResultActions result) throws Exception {
+        result.andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
 }

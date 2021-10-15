@@ -8,9 +8,13 @@ import bym.shop.util.SqlAfter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.ResultActions;
+import bym.shop.controller.UserController;
 
 import static bym.shop.constants.BaseURL.USER_BASE_URL;
 
+/**
+ * Integration tests for {@link UserController#create(UserRequestDto)}.
+ */
 public class UserCreationIntegrationTest extends BaseIntegrationTest {
 
     @SqlAfter("/sql/delete-user.sql")
@@ -19,9 +23,9 @@ public class UserCreationIntegrationTest extends BaseIntegrationTest {
         final UserRequestDto expectedRequest = new UserRequestDto("Alex Wood");
 
         final ResultActions res = executePost(USER_BASE_URL, expectedRequest);
-
         checkForSuccess(res);
-        UserResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), UserResponseDto.class);
+
+        final UserResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), UserResponseDto.class);
         Assertions.assertEquals(expectedRequest.getFullName(), response.getFullName());
         Assertions.assertNotNull(response.getId());
     }
@@ -38,10 +42,10 @@ public class UserCreationIntegrationTest extends BaseIntegrationTest {
         checkInvalidParameters(expectedRequest);
     }
 
-    private void checkInvalidParameters(UserRequestDto expectedRequest) throws Exception {
+    private void checkInvalidParameters(final UserRequestDto expectedRequest) throws Exception {
         final ResultActions res = executePost(USER_BASE_URL, expectedRequest);
         checkForClientError(res);
-        ErrorResponse response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponse.class);
+        final ErrorResponse response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponse.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals("Invalid input parameters. \n" +
                 "Validation failed for field: fullName , object: userRequestDto. Message: must not be blank", response.getMessage());
