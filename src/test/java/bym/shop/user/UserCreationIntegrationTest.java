@@ -1,8 +1,8 @@
 package bym.shop.user;
 
 import bym.shop.BaseIntegrationTest;
-import bym.shop.dto.UserRequestDto;
-import bym.shop.dto.UserResponseDto;
+import bym.shop.dto.user.UserRequestDto;
+import bym.shop.dto.user.UserResponseDto;
 import bym.shop.exception.ErrorResponseDto;
 import bym.shop.util.SqlAfter;
 import org.junit.jupiter.api.Assertions;

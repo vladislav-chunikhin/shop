@@ -1,13 +1,61 @@
 package bym.shop.service;
 
+import bym.shop.dto.CommonArrayResponseDto;
+import bym.shop.dto.category.CategoryRequestDto;
+import bym.shop.dto.category.CategoryResponseDto;
+import bym.shop.entity.CategoryEntity;
+import bym.shop.entity.ProductEntity;
+import bym.shop.exception.ResourceDeletedException;
 import bym.shop.repository.CategoryRepository;
+import bym.shop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import javax.persistence.EntityNotFoundException;
+import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
+    public CategoryResponseDto create(final CategoryRequestDto request) {
+        final CategoryEntity category = new CategoryEntity();
+        category.setName(request.getName());
+        return CategoryResponseDto.from(categoryRepository.save(category));
+    }
+
+    public void update(final UUID id, final CategoryRequestDto request) {
+        final CategoryEntity category = categoryRepository.findByIdAndDeletedIsNull(id).orElseThrow(() -> new EntityNotFoundException("Category is not found"));
+        category.setName(request.getName());
+        categoryRepository.save(category);
+    }
+
+    public CommonArrayResponseDto<CategoryResponseDto> get(final Collection<String> ids) {
+        if (CollectionUtils.isEmpty(ids)) return new CommonArrayResponseDto<>(categoryRepository.findAllByDeletedIsNull().stream().map(CategoryResponseDto::from).collect(Collectors.toList()));
+        final List<UUID> idsAsUUID = ids.stream().map(UUID::fromString).collect(Collectors.toList());
+        return new CommonArrayResponseDto<>(categoryRepository.findAllByDeletedIsNullAndIdIn(idsAsUUID).stream().map(CategoryResponseDto::from).collect(Collectors.toList()));
+    }
+
+    @Transactional
+    public void delete(final UUID id) {
+        final CategoryEntity category = categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category is not found"));
+        if (category.getDeleted() != null) throw new ResourceDeletedException("Category has already been deleted");
+        category.setDeleted(LocalDateTime.now());
+        categoryRepository.save(category);
+
+        final Collection<ProductEntity> products = productRepository.findAllByCategoryIdAndDeletedIsNull(id);
+        if (!CollectionUtils.isEmpty(products)) {
+            products.forEach(it -> it.setDeleted(LocalDateTime.now()));
+            productRepository.saveAll(products);
+        }
+    }
 }

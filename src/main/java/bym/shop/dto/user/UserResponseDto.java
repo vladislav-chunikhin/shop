@@ -1,5 +1,6 @@
-package bym.shop.dto;
+package bym.shop.dto.user;
 
+import bym.shop.dto.ResponseDto;
 import bym.shop.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;

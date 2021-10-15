@@ -1,8 +1,8 @@
 package bym.shop.service;
 
 import bym.shop.dto.CommonArrayResponseDto;
-import bym.shop.dto.UserRequestDto;
-import bym.shop.dto.UserResponseDto;
+import bym.shop.dto.user.UserRequestDto;
+import bym.shop.dto.user.UserResponseDto;
 import bym.shop.entity.UserEntity;
 import bym.shop.exception.ResourceDeletedException;
 import bym.shop.repository.UserRepository;
@@ -37,7 +37,7 @@ public class UserService {
     }
 
     public CommonArrayResponseDto<UserResponseDto> get(@Nullable final Collection<String> ids) {
-        if (CollectionUtils.isEmpty(ids)) return new CommonArrayResponseDto<>(userRepository.findAll().stream().map(UserResponseDto::from).collect(Collectors.toList()));
+        if (CollectionUtils.isEmpty(ids)) return new CommonArrayResponseDto<>(userRepository.findAllByDeletedIsNull().stream().map(UserResponseDto::from).collect(Collectors.toList()));
         final List<UUID> idsAsUUID = ids.stream().map(UUID::fromString).collect(Collectors.toList());
         return new CommonArrayResponseDto<>(userRepository.findAllByDeletedIsNullAndIdIn(idsAsUUID).stream().map(UserResponseDto::from).collect(Collectors.toList()));
     }

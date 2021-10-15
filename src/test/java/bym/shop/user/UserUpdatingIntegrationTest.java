@@ -2,7 +2,7 @@ package bym.shop.user;
 
 import bym.shop.BaseIntegrationTest;
 import bym.shop.controller.UserController;
-import bym.shop.dto.UserRequestDto;
+import bym.shop.dto.user.UserRequestDto;
 import bym.shop.entity.UserEntity;
 import bym.shop.exception.ErrorResponseDto;
 import bym.shop.util.SqlAfter;

@@ -3,7 +3,7 @@ package bym.shop.user;
 import bym.shop.BaseIntegrationTest;
 import bym.shop.controller.UserController;
 import bym.shop.dto.CommonArrayResponseDto;
-import bym.shop.dto.UserResponseDto;
+import bym.shop.dto.user.UserResponseDto;
 import bym.shop.exception.ErrorResponseDto;
 import bym.shop.util.SqlAfter;
 import bym.shop.util.SqlBefore;

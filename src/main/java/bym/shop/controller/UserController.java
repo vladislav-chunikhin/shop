@@ -1,8 +1,8 @@
 package bym.shop.controller;
 
 import bym.shop.dto.CommonArrayResponseDto;
-import bym.shop.dto.UserRequestDto;
-import bym.shop.dto.UserResponseDto;
+import bym.shop.dto.user.UserRequestDto;
+import bym.shop.dto.user.UserResponseDto;
 import bym.shop.exception.ErrorResponseDto;
 import bym.shop.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,11 +41,6 @@ public class UserController {
                     responseCode = "400",
                     description = "Full username not specified",
                     content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
-            ),
-            @ApiResponse(
-                    responseCode = "500",
-                    description = "Invalid user ID format",
-                    content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
             )
     })
     @PostMapping
@@ -57,8 +52,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",
-                    description = "Updating successful",
-                    content = {@Content(schema = @Schema(implementation = UserResponseDto.class))}
+                    description = "Updating successful"
             ),
             @ApiResponse(
                     responseCode = "400",
@@ -104,8 +98,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "204",
-                    description = "Deleting successful",
-                    content = {@Content(schema = @Schema(implementation = UserResponseDto.class))}
+                    description = "Deleting successful"
             ),
             @ApiResponse(
                     responseCode = "500",
