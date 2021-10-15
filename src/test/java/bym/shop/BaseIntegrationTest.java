@@ -67,4 +67,8 @@ public class BaseIntegrationTest {
         result.andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+    protected void checkForClientError(final ResultActions result) throws Exception {
+        result.andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
+
 }

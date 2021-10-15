@@ -23,7 +23,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public UserResponseDto createUser(@RequestBody @Valid final UserRequestDto request) {
+    public UserResponseDto createUser(@Valid @RequestBody final UserRequestDto request) {
         return userService.createUser(request);
     }
 
