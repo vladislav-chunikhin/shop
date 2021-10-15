@@ -3,7 +3,7 @@ package bym.shop.user;
 import bym.shop.BaseIntegrationTest;
 import bym.shop.dto.UserRequestDto;
 import bym.shop.dto.UserResponseDto;
-import bym.shop.exception.ErrorResponse;
+import bym.shop.exception.ErrorResponseDto;
 import bym.shop.util.SqlAfter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static bym.shop.constants.BaseURL.USER_BASE_URL;
  */
 public class UserCreationIntegrationTest extends BaseIntegrationTest {
 
-    @SqlAfter("/sql/delete-user.sql")
+    @SqlAfter("/sql/user/delete-user.sql")
     @Test
     public void userCreationInTheUsualCase() throws Exception {
         final UserRequestDto expectedRequest = new UserRequestDto("Alex Wood");
@@ -45,7 +45,7 @@ public class UserCreationIntegrationTest extends BaseIntegrationTest {
     private void checkInvalidParameters(final UserRequestDto expectedRequest) throws Exception {
         final ResultActions res = executePost(USER_BASE_URL, expectedRequest);
         checkForClientError(res);
-        final ErrorResponse response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponse.class);
+        final ErrorResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals("Invalid input parameters. \n" +
                 "Validation failed for field: fullName , object: userRequestDto. Message: must not be blank", response.getMessage());

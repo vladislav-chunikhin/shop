@@ -4,5 +4,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
     <include file="2021-10-13--01-initial-ddl.xml" relativeToChangelogFile="true"/>
+    <include file="2021-10-15--01-added-deleted-for-every-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

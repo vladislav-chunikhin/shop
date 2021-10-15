@@ -1,0 +1,86 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="ADD_DELETED_FOR_CATEGORIES" author="vchunikhin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists schemaName="amazon" tableName="categories" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn schemaName="amazon" tableName="categories">
+            <column name="deleted" type="datetime"/>
+        </addColumn>
+        <rollback>
+            <dropColumn schemaName="amazon" tableName="categories">
+                <column name="deleted"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="ADD_DELETED_FOR_ORDER_ITEMS" author="vchunikhin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists schemaName="amazon" tableName="order_items" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn schemaName="amazon" tableName="order_items">
+            <column name="deleted" type="datetime"/>
+        </addColumn>
+        <rollback>
+            <dropColumn schemaName="amazon" tableName="order_items">
+                <column name="deleted"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="ADD_DELETED_FOR_ORDERS" author="vchunikhin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists schemaName="amazon" tableName="orders" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn schemaName="amazon" tableName="orders">
+            <column name="deleted" type="datetime"/>
+        </addColumn>
+        <rollback>
+            <dropColumn schemaName="amazon" tableName="orders">
+                <column name="deleted"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="ADD_DELETED_FOR_PRODUCTS" author="vchunikhin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists schemaName="amazon" tableName="products" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn schemaName="amazon" tableName="products">
+            <column name="deleted" type="datetime"/>
+        </addColumn>
+        <rollback>
+            <dropColumn schemaName="amazon" tableName="products">
+                <column name="deleted"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
+    <changeSet id="ADD_DELETED_FOR_USERS" author="vchunikhin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists schemaName="amazon" tableName="users" columnName="deleted"/>
+            </not>
+        </preConditions>
+        <addColumn schemaName="amazon" tableName="users">
+            <column name="deleted" type="datetime"/>
+        </addColumn>
+        <rollback>
+            <dropColumn schemaName="amazon" tableName="users">
+                <column name="deleted"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

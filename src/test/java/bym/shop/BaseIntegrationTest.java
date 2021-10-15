@@ -61,7 +61,7 @@ public class BaseIntegrationTest {
     protected ResultActions executeDelete(final String url) throws Exception {
         return mockMvc.perform(
                 MockMvcRequestBuilders
-                        .get(url)
+                        .delete(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
         );
@@ -72,7 +72,7 @@ public class BaseIntegrationTest {
     }
 
     protected void checkForClientError(final ResultActions result) throws Exception {
-        result.andExpect(MockMvcResultMatchers.status().is4xxClientError());
+        result.andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     protected void checkForNoContent(final ResultActions result) throws Exception {
@@ -81,6 +81,14 @@ public class BaseIntegrationTest {
 
     protected void checkForNotFound(final ResultActions result) throws Exception {
         result.andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
+
+    protected void checkForGone(final ResultActions result) throws Exception {
+        result.andExpect(MockMvcResultMatchers.status().isGone());
+    }
+
+    protected void checkForInternalServerError(final ResultActions result) throws Exception {
+        result.andExpect(MockMvcResultMatchers.status().isInternalServerError());
     }
 
 }
