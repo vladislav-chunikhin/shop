@@ -5,6 +5,7 @@ import bym.shop.entity.ProductEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.NonNull;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -24,7 +25,7 @@ public class ProductResponseDto implements ResponseDto {
 
     private UUID categoryId;
 
-    public static ProductResponseDto from(final ProductEntity entity) {
+    public static ProductResponseDto from(@NonNull final ProductEntity entity) {
         return new ProductResponseDto(
                 entity.getId(),
                 entity.getName(),
