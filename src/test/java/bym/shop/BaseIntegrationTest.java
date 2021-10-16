@@ -2,6 +2,7 @@ package bym.shop;
 
 import bym.shop.dto.RequestDto;
 import bym.shop.repository.CategoryRepository;
+import bym.shop.repository.ProductRepository;
 import bym.shop.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public abstract class BaseIntegrationTest {
 
     @Autowired
     protected CategoryRepository categoryRepository;
+
+    @Autowired
+    protected ProductRepository productRepository;
 
     protected ObjectMapper mapper = new ObjectMapper();
 
