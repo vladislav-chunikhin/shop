@@ -6,9 +6,9 @@ import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.UUID;
 
-/*@Document(indexName = "orderToProducts")
+@Document(indexName = "order")
 @Data
-public class OrderToProducts {
+public class OrderInfo {
 
     @Id
     private UUID id;
@@ -18,4 +18,5 @@ public class OrderToProducts {
     private UUID userId;
 
     private String products;
-}*/
+
+}

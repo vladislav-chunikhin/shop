@@ -1,6 +1,7 @@
 package bym.shop;
 
 import bym.shop.dto.RequestDto;
+import bym.shop.elasticsearch.repository.OrderInfoElasticSearchRepository;
 import bym.shop.repository.CategoryRepository;
 import bym.shop.repository.ProductRepository;
 import bym.shop.repository.UserRepository;
@@ -34,6 +35,9 @@ public abstract class BaseIntegrationTest {
 
     @Autowired
     protected ProductRepository productRepository;
+
+    @Autowired
+    protected OrderInfoElasticSearchRepository orderInfoElasticSearchRepository;
 
     protected ObjectMapper mapper = new ObjectMapper();
 

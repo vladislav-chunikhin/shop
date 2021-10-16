@@ -11,5 +11,4 @@ build
 /gradlew.bat
 
 /deploy/pg-data-volume/
-/deploy/elasticsearch-data-volume/
-/deploy/logstash/
+/deploy/elasticsearch/
