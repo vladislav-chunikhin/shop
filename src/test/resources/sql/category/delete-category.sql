@@ -1,0 +1,1 @@
+DELETE FROM amazon.categories WHERE id IS NOT NULL;

@@ -1,6 +1,7 @@
 package bym.shop;
 
 import bym.shop.dto.RequestDto;
+import bym.shop.repository.CategoryRepository;
 import bym.shop.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,13 +20,16 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
         classes = ShopApplication.class
 )
-public class BaseIntegrationTest {
+public abstract class BaseIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    protected CategoryRepository categoryRepository;
 
     protected ObjectMapper mapper = new ObjectMapper();
 
