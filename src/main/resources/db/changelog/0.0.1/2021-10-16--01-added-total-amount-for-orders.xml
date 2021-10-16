@@ -1,0 +1,22 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="ADD_TOTAL_AMOUNT_FOR_ORDERS" author="vchunikhin">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <columnExists schemaName="amazon" tableName="orders" columnName="total_amount"/>
+            </not>
+        </preConditions>
+        <addColumn schemaName="amazon" tableName="orders">
+            <column name="total_amount" type="number"/>
+        </addColumn>
+        <rollback>
+            <dropColumn schemaName="amazon" tableName="orders">
+                <column name="total_amount"/>
+            </dropColumn>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

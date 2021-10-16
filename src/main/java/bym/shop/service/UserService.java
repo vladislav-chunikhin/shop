@@ -6,17 +6,16 @@ import bym.shop.dto.user.UserResponseDto;
 import bym.shop.entity.UserEntity;
 import bym.shop.exception.ResourceDeletedException;
 import bym.shop.repository.UserRepository;
+import bym.shop.util.CommonUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.persistence.EntityNotFoundException;
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,25 +23,23 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserResponseDto create(final UserRequestDto request) {
+    public UserResponseDto create(@NonNull final UserRequestDto request) {
         final UserEntity user = new UserEntity();
         user.setFullName(request.getFullName());
         return UserResponseDto.from(userRepository.save(user));
     }
 
-    public void update(final UUID id, final UserRequestDto request) {
+    public void update(@NonNull final UUID id, @NonNull final UserRequestDto request) {
         final UserEntity user = userRepository.findByIdAndDeletedIsNull(id).orElseThrow(() -> new EntityNotFoundException("User is not found"));
         user.setFullName(request.getFullName());
         userRepository.save(user);
     }
 
     public CommonArrayResponseDto<UserResponseDto> get(@Nullable final Collection<String> ids) {
-        if (CollectionUtils.isEmpty(ids)) return new CommonArrayResponseDto<>(userRepository.findAllByDeletedIsNull().stream().map(UserResponseDto::from).collect(Collectors.toList()));
-        final List<UUID> idsAsUUID = ids.stream().map(UUID::fromString).collect(Collectors.toList());
-        return new CommonArrayResponseDto<>(userRepository.findAllByDeletedIsNullAndIdIn(idsAsUUID).stream().map(UserResponseDto::from).collect(Collectors.toList()));
+        return CommonUtil.getByIds(ids, UserResponseDto::from, userRepository::findAllByDeletedIsNull, userRepository::findAllByDeletedIsNullAndIdIn);
     }
 
-    public void delete(final UUID id) {
+    public void delete(@NonNull final UUID id) {
         final UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User is not found"));
         if (user.getDeleted() != null) throw new ResourceDeletedException("User has already been deleted");
         user.setDeleted(LocalDateTime.now());

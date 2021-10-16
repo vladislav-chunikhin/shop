@@ -5,5 +5,6 @@
 
     <include file="2021-10-13--01-initial-ddl.xml" relativeToChangelogFile="true"/>
     <include file="2021-10-15--01-added-deleted-for-every-table.xml" relativeToChangelogFile="true"/>
+    <include file="2021-10-16--01-added-total-amount-for-orders.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
