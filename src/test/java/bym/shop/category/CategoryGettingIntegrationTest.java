@@ -29,7 +29,7 @@ public class CategoryGettingIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executeGet(CATEGORY_BASE_URL + "?ids=450baeb2-2908-4998-82ac-173c5b699df4,19184ac3-014c-4c83-89b1-879bd5f583e2");
         checkForSuccess(res);
 
-        final CommonArrayResponseDto<CategoryResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<CategoryResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );
@@ -44,7 +44,7 @@ public class CategoryGettingIntegrationTest extends BaseIntegrationTest {
     public void categoryGettingWhenIdsAreMissing() throws Exception {
         final ResultActions res = executeGet(CATEGORY_BASE_URL);
         checkForSuccess(res);
-        final CommonArrayResponseDto<CategoryResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<CategoryResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );

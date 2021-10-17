@@ -29,7 +29,7 @@ public class ProductGettingIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executeGet(PRODUCT_BASE_URL + "?ids=4d4b6161-dd5f-410a-83cc-41b247452f3e,a0c4e0c4-34b4-4617-b8de-4597b1bad553");
         checkForSuccess(res);
 
-        final CommonArrayResponseDto<ProductResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<ProductResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );
@@ -44,7 +44,7 @@ public class ProductGettingIntegrationTest extends BaseIntegrationTest {
     public void productGettingWhenIdsAreMissing() throws Exception {
         final ResultActions res = executeGet(PRODUCT_BASE_URL);
         checkForSuccess(res);
-        final CommonArrayResponseDto<ProductResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<ProductResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );

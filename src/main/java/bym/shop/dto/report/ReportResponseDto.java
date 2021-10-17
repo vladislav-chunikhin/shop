@@ -7,15 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReportResponseDto implements ResponseDto {
 
-    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-    private ZonedDateTime date;
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate date;
 
     private BigDecimal income;
 

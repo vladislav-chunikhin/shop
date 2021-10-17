@@ -24,7 +24,7 @@ public class CategoryCreationIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executePost(CATEGORY_BASE_URL, expectedRequest);
         checkForSuccess(res);
 
-        final CategoryResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), CategoryResponseDto.class);
+        final CategoryResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), CategoryResponseDto.class);
         Assertions.assertEquals(expectedRequest.getName(), response.getName());
         Assertions.assertNotNull(response.getId());
     }

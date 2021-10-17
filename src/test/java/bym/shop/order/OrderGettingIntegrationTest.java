@@ -26,7 +26,7 @@ public class OrderGettingIntegrationTest extends BaseIntegrationTest {
     public void orderGettingInTheUsualCase() throws Exception {
         final ResultActions res = executeGet(ORDER_BASE_URL + "?ids=53204f67-4563-4e48-8af0-d253d15e31c9");
         checkForSuccess(res);
-        final CommonArrayResponseDto<OrderResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<OrderResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );
@@ -41,7 +41,7 @@ public class OrderGettingIntegrationTest extends BaseIntegrationTest {
     public void orderGettingWhenIdsAreMissing() throws Exception {
         final ResultActions res = executeGet(ORDER_BASE_URL);
         checkForSuccess(res);
-        final CommonArrayResponseDto<OrderResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<OrderResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );

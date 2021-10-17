@@ -39,7 +39,7 @@ public class UserDeletingIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executeDelete(USER_BASE_URL + "/f7ef3015-1215-432a-a055-34033f01de59");
         checkForGone(res);
 
-        final ErrorResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
+        final ErrorResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals("User has already been deleted", response.getMessage());
     }

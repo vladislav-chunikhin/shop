@@ -42,7 +42,7 @@ public class UserUpdatingIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executePut(USER_BASE_URL + "/4d4b6161-dd5f-410a-83cc-41b247452f3e", expectedRequest);
         checkForNotFound(res);
 
-        final ErrorResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
+        final ErrorResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals("User is not found", response.getMessage());
     }

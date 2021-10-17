@@ -30,7 +30,7 @@ public class UserGettingIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executeGet(USER_BASE_URL + "?ids=f7ef3015-1215-432a-a055-34033f01de59, c41ac77a-2449-43d5-818c-d00fd03668ba");
         checkForSuccess(res);
 
-        final CommonArrayResponseDto<UserResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<UserResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );
@@ -45,7 +45,7 @@ public class UserGettingIntegrationTest extends BaseIntegrationTest {
     public void userGettingWhenIdsAreMissing() throws Exception {
         final ResultActions res = executeGet(USER_BASE_URL);
         checkForSuccess(res);
-        final CommonArrayResponseDto<UserResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<UserResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );
@@ -59,7 +59,7 @@ public class UserGettingIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executeGet(USER_BASE_URL + "?ids=bad-uuid");
         checkForInternalServerError(res);
 
-        final ErrorResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
+        final ErrorResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals("Invalid UUID string: bad-uuid", response.getMessage());
     }
@@ -70,7 +70,7 @@ public class UserGettingIntegrationTest extends BaseIntegrationTest {
     public void userGettingByNotExistingIds() throws Exception {
         final ResultActions res = executeGet(USER_BASE_URL + "?ids=aa87726f-c86b-451a-b500-4107504c7ccf");
         checkForSuccess(res);
-        final CommonArrayResponseDto<UserResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<UserResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );

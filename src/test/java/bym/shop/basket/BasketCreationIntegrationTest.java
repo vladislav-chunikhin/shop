@@ -42,7 +42,7 @@ public class BasketCreationIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executePost(BASKET_BASE_URL, expectedRequest);
         checkForSuccess(res);
 
-        final CommonArrayResponseDto<BasketResponseDto> response = mapper.readValue(
+        final CommonArrayResponseDto<BasketResponseDto> response = objectMapper.readValue(
                 res.andReturn().getResponse().getContentAsString(),
                 new TypeReference<>() {}
         );

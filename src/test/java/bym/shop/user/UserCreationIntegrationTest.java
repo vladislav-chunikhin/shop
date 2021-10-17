@@ -25,7 +25,7 @@ public class UserCreationIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executePost(USER_BASE_URL, expectedRequest);
         checkForSuccess(res);
 
-        final UserResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), UserResponseDto.class);
+        final UserResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), UserResponseDto.class);
         Assertions.assertEquals(expectedRequest.getFullName(), response.getFullName());
         Assertions.assertNotNull(response.getId());
     }
@@ -45,7 +45,7 @@ public class UserCreationIntegrationTest extends BaseIntegrationTest {
     private void checkInvalidParameters(final UserRequestDto expectedRequest) throws Exception {
         final ResultActions res = executePost(USER_BASE_URL, expectedRequest);
         checkForClientError(res);
-        final ErrorResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
+        final ErrorResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals("Invalid input parameters. \n" +
                 "Validation failed for field: fullName , object: userRequestDto. Message: must not be blank", response.getMessage());

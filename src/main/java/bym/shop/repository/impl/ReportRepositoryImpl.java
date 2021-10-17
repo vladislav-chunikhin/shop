@@ -1,9 +1,10 @@
 package bym.shop.repository.impl;
 
-import bym.shop.dto.ReportResultDto;
 import bym.shop.dto.report.ReportRequestDto;
+import bym.shop.dto.report.ReportResponseDto;
 import bym.shop.repository.ReportRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.lang.NonNull;
@@ -23,10 +24,14 @@ public class ReportRepositoryImpl implements ReportRepository {
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public Collection<ReportResultDto> getReport(@NonNull final ReportRequestDto dto) {
+    public Collection<ReportResponseDto> getReport(@NonNull final ReportRequestDto dto) {
+        final String dateFilter = ObjectUtils.allNull(dto.getFrom(), dto.getTo())
+                ? ""
+                : "WHERE cast(o.created as date) BETWEEN cast(:from as date) AND cast(:to as date)\n";
+
         final String sql = "SELECT cast(o.created as date) date, sum(o.total_amount) income\n" +
                 "FROM amazon.orders o\n" +
-                "WHERE cast(o.created as date) BETWEEN cast(:from as date) AND cast(:to as date)\n" +
+                 dateFilter +
                 "GROUP BY date\n" +
                 "ORDER BY date;";
 
@@ -36,10 +41,10 @@ public class ReportRepositoryImpl implements ReportRepository {
         return jdbcTemplate.query(sql, params, new ReportRowMapper());
     }
 
-    private static class ReportRowMapper implements RowMapper<ReportResultDto> {
+    private static class ReportRowMapper implements RowMapper<ReportResponseDto> {
         @Override
-        public ReportResultDto mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new ReportResultDto(rs.getDate("date").toLocalDate(), rs.getBigDecimal("income"));
+        public ReportResponseDto mapRow(ResultSet rs, int rowNum) throws SQLException {
+            return new ReportResponseDto(rs.getDate("date").toLocalDate(), rs.getBigDecimal("income"));
         }
     }
 }

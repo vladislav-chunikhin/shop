@@ -43,7 +43,8 @@ public abstract class BaseIntegrationTest {
     @Autowired
     protected OrderItemRepository orderItemRepository;
 
-    protected ObjectMapper mapper = new ObjectMapper();
+    @Autowired
+    protected ObjectMapper objectMapper;
 
     protected ResultActions executePost(final String url, final RequestDto request) throws Exception {
         return mockMvc.perform(
@@ -51,7 +52,7 @@ public abstract class BaseIntegrationTest {
                         .post(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(request))
+                        .content(objectMapper.writeValueAsString(request))
         );
     }
 
@@ -61,7 +62,7 @@ public abstract class BaseIntegrationTest {
                         .put(url)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(request))
+                        .content(objectMapper.writeValueAsString(request))
         );
     }
 

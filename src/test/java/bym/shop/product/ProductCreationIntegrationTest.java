@@ -34,7 +34,7 @@ public class ProductCreationIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executePost(PRODUCT_BASE_URL, expectedRequest);
         checkForSuccess(res);
 
-        final ProductResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ProductResponseDto.class);
+        final ProductResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), ProductResponseDto.class);
         Assertions.assertEquals(expectedRequest.getName(), response.getName());
         Assertions.assertEquals(expectedRequest.getCategoryId(), response.getCategoryId().toString());
         Assertions.assertEquals(expectedRequest.getPrice(), response.getPrice());
@@ -112,7 +112,7 @@ public class ProductCreationIntegrationTest extends BaseIntegrationTest {
         );
         final ResultActions res = executePost(PRODUCT_BASE_URL, expectedRequest);
         checkForInternalServerError(res);
-        final ErrorResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
+        final ErrorResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals("could not execute statement; SQL [n/a]; constraint [fk_products_to_categories]; nested exception is org.hibernate.exception.ConstraintViolationException: could not execute statement", response.getMessage());
     }
@@ -120,7 +120,7 @@ public class ProductCreationIntegrationTest extends BaseIntegrationTest {
     private void checkInvalidParameters(final ProductRequestDto expectedRequest, final String expectedErrorMessage) throws Exception {
         final ResultActions res = executePost(PRODUCT_BASE_URL, expectedRequest);
         checkForClientError(res);
-        final ErrorResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
+        final ErrorResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), ErrorResponseDto.class);
         Assertions.assertNotNull(response.getMessage());
         Assertions.assertEquals(expectedErrorMessage, response.getMessage());
     }

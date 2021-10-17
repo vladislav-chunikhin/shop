@@ -29,7 +29,7 @@ public class OrderCreationIntegrationTest extends BaseIntegrationTest {
         final ResultActions res = executePost(ORDER_BASE_URL, expectedRequest);
         checkForSuccess(res);
 
-        final OrderResponseDto response = mapper.readValue(res.andReturn().getResponse().getContentAsString(), OrderResponseDto.class);
+        final OrderResponseDto response = objectMapper.readValue(res.andReturn().getResponse().getContentAsString(), OrderResponseDto.class);
         Assertions.assertEquals(response.getUserId(), UUID.fromString("c41ac77a-2449-43d5-818c-d00fd03668ba"));
         Assertions.assertEquals(response.getTotalAmount(), BigDecimal.ZERO);
         Assertions.assertNotNull(response.getId());
