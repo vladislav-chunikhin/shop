@@ -8,6 +8,7 @@ import bym.shop.elasticsearch.Order;
 import bym.shop.util.SqlAfter;
 import bym.shop.util.SqlBefore;
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.apache.commons.compress.utils.Sets;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.test.web.servlet.ResultActions;
@@ -98,14 +99,14 @@ public class OrderGettingIntegrationTest extends BaseIntegrationTest {
                         UUID.fromString("777acc1f-a93c-4d4f-9733-a9650b8a62f0"),
                         UUID.fromString("f7ef3015-1215-432a-a055-34033f01de59"),
                         BigDecimal.valueOf(2355),
-                        Arrays.asList("beer", "smth")
+                        Sets.newHashSet("beer", "smth")
                 ),
                 new Order(
                         UUID.randomUUID(),
                         UUID.fromString("53204f67-4563-4e48-8af0-d253d15e31c9"),
                         UUID.fromString("f7ef3015-1215-432a-a055-34033f01de59"),
                         BigDecimal.valueOf(7890),
-                        Arrays.asList("bear", "doll", "cupboard")
+                        Sets.newHashSet("bear", "doll", "cupboard")
                 )
         );
     }

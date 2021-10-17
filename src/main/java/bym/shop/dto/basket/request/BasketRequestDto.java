@@ -1,4 +1,4 @@
-package bym.shop.dto.basket;
+package bym.shop.dto.basket.request;
 
 import bym.shop.dto.RequestDto;
 import lombok.AllArgsConstructor;

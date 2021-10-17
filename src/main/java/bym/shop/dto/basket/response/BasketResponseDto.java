@@ -1,4 +1,4 @@
-package bym.shop.dto.basket;
+package bym.shop.dto.basket.response;
 
 import bym.shop.dto.ResponseDto;
 import bym.shop.entity.OrderItemEntity;

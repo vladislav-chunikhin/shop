@@ -1,8 +1,9 @@
 package bym.shop.controller;
 
 import bym.shop.dto.CommonArrayResponseDto;
-import bym.shop.dto.basket.BasketRequestDto;
-import bym.shop.dto.basket.BasketResponseDto;
+import bym.shop.dto.basket.request.BasketRequestDto;
+import bym.shop.dto.basket.response.BasketResponseDto;
+import bym.shop.dto.basket.request.BasketUpdateRequestDto;
 import bym.shop.exception.ErrorResponseDto;
 import bym.shop.service.BasketService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -12,12 +13,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 import static bym.shop.constants.BaseURL.BASKET_BASE_URL;
 
@@ -38,7 +38,7 @@ public class BasketController {
             ),
             @ApiResponse(
                     responseCode = "400",
-                    description = "Name not specified",
+                    description = "Order id not specified or items are empty",
                     content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
             )
     })
@@ -47,4 +47,55 @@ public class BasketController {
         return basketService.create(request);
     }
 
+    @Operation(summary = "API to update a basket")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Updating successful"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Order id not specified or items are empty",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Invalid order ID format",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Order is not found",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
+            )
+    })
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@Valid @RequestBody final BasketUpdateRequestDto request, @PathVariable final String id) {
+        basketService.update(UUID.fromString(id), request);
+    }
+
+    @Operation(summary = "API to delete a basket (soft delete)")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "204",
+                    description = "Deleting successful"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Invalid order ID format",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "410",
+                    description = "Resource has already been deleted",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
+
+            )
+    })
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable final String id) {
+        basketService.delete(UUID.fromString(id));
+    }
 }

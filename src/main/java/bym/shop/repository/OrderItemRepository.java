@@ -16,4 +16,6 @@ public interface OrderItemRepository extends JpaRepository<OrderItemEntity, UUID
     Collection<OrderItemEntity> findAllByDeletedIsNullAndIdIn(final Collection<UUID> ids);
 
     Collection<OrderItemEntity> findAllByDeletedIsNull();
+
+    Collection<OrderItemEntity> findAllByDeletedIsNullAndProductId(final UUID productId);
 }
