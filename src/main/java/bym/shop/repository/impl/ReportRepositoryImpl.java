@@ -31,8 +31,8 @@ public class ReportRepositoryImpl implements ReportRepository {
                 "ORDER BY date;";
 
         final Map<String, LocalDate> params = new HashMap<>();
-        params.put("from", dto.getFrom().toLocalDate());
-        params.put("to", dto.getTo().toLocalDate());
+        params.put("from", dto.getFrom());
+        params.put("to", dto.getTo());
         return jdbcTemplate.query(sql, params, new ReportRowMapper());
     }
 
