@@ -43,7 +43,7 @@ public class BasketController {
             )
     })
     @PostMapping
-    public CommonArrayResponseDto<BasketResponseDto> createShoppingCart(@Valid @RequestBody final BasketRequestDto request) {
+    public CommonArrayResponseDto<BasketResponseDto> create(@Valid @RequestBody final BasketRequestDto request) {
         return basketService.create(request);
     }
 

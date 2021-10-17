@@ -4,8 +4,8 @@ import bym.shop.dto.CommonArrayResponseDto;
 import bym.shop.dto.basket.BasketRequestDto;
 import bym.shop.dto.basket.BasketResponseDto;
 import bym.shop.dto.basket.OrderItemRequestDto;
-import bym.shop.elasticsearch.OrderInfo;
-import bym.shop.elasticsearch.repository.OrderInfoElasticSearchRepository;
+import bym.shop.elasticsearch.Order;
+import bym.shop.elasticsearch.OrderElasticSearchService;
 import bym.shop.entity.OrderEntity;
 import bym.shop.entity.OrderItemEntity;
 import bym.shop.entity.ProductEntity;
@@ -29,7 +29,7 @@ public class BasketService {
     private final OrderItemRepository orderItemRepository;
     private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
-    private final OrderInfoElasticSearchRepository orderInfoElasticSearchRepository;
+    private final OrderElasticSearchService orderElasticSearchService;
 
     @Transactional
     public CommonArrayResponseDto<BasketResponseDto> create(@NonNull final BasketRequestDto request) {
@@ -48,7 +48,7 @@ public class BasketService {
         order.setTotalAmount(totalAmount);
         orderRepository.save(order);
 
-        saveOrderToElasticSearch(orderId, products, order);
+        orderElasticSearchService.saveOrderToElasticSearch(orderId, products, order);
 
         return new CommonArrayResponseDto<>(orderItemRepository.saveAll(orderItems).stream().map(BasketResponseDto::from).collect(Collectors.toList()));
     }
@@ -66,19 +66,5 @@ public class BasketService {
         final BigDecimal price = Optional.ofNullable(productIdToPrice.get(productId)).orElseThrow(() -> new RuntimeException("Price is missing"));
         orderItem.setPrice(price.multiply(BigDecimal.valueOf(orderItemDto.getQuantity())));
         return orderItem;
-    }
-
-    private void saveOrderToElasticSearch(
-            @NonNull final UUID orderId,
-            @NonNull final Collection<ProductEntity> products,
-            @NonNull final OrderEntity order
-    ) {
-        final OrderInfo orderInfo = new OrderInfo();
-        orderInfo.setId(UUID.randomUUID());
-        orderInfo.setOrderId(orderId);
-        orderInfo.setUserId(order.getUserId());
-        orderInfo.setProducts(products.stream().map(ProductEntity::getName).collect(Collectors.toList()));
-        orderInfo.setTotalAmount(order.getTotalAmount());
-        orderInfoElasticSearchRepository.save(orderInfo);
     }
 }

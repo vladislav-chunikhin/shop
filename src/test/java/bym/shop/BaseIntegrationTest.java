@@ -1,7 +1,7 @@
 package bym.shop;
 
 import bym.shop.dto.RequestDto;
-import bym.shop.elasticsearch.repository.OrderInfoElasticSearchRepository;
+import bym.shop.elasticsearch.repository.OrderElasticSearchRepository;
 import bym.shop.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public abstract class BaseIntegrationTest {
     protected ProductRepository productRepository;
 
     @Autowired
-    protected OrderInfoElasticSearchRepository orderInfoElasticSearchRepository;
+    protected OrderElasticSearchRepository orderElasticSearchRepository;
 
     @Autowired
     protected OrderRepository orderRepository;

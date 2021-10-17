@@ -6,7 +6,7 @@ import bym.shop.dto.CommonArrayResponseDto;
 import bym.shop.dto.basket.BasketRequestDto;
 import bym.shop.dto.basket.BasketResponseDto;
 import bym.shop.dto.basket.OrderItemRequestDto;
-import bym.shop.elasticsearch.OrderInfo;
+import bym.shop.elasticsearch.Order;
 import bym.shop.util.SqlAfter;
 import bym.shop.util.SqlBefore;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -20,7 +20,7 @@ import java.util.Collection;
 import static bym.shop.constants.BaseURL.BASKET_BASE_URL;
 
 /**
- * Integration tests for {@link BasketController#createShoppingCart(BasketRequestDto)}.
+ * Integration tests for {@link BasketController#create(BasketRequestDto)}.
  */
 public class BasketCreationIntegrationTest extends BaseIntegrationTest {
 
@@ -49,10 +49,10 @@ public class BasketCreationIntegrationTest extends BaseIntegrationTest {
 
         Assertions.assertEquals(5, response.getData().size());
 
-        final Collection<OrderInfo> orders = orderInfoElasticSearchRepository.findAllByProductsContaining("be");
+        final Collection<Order> orders = orderElasticSearchRepository.findAllByProductsContaining("be");
         Assertions.assertFalse(orders.isEmpty());
 
-        orderInfoElasticSearchRepository.deleteAll();
+        orderElasticSearchRepository.deleteAll();
     }
 
 }

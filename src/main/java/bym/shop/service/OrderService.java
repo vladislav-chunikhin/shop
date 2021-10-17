@@ -3,8 +3,8 @@ package bym.shop.service;
 import bym.shop.dto.CommonArrayResponseDto;
 import bym.shop.dto.order.OrderRequestDto;
 import bym.shop.dto.order.OrderResponseDto;
-import bym.shop.elasticsearch.OrderInfo;
-import bym.shop.elasticsearch.repository.OrderInfoElasticSearchRepository;
+import bym.shop.elasticsearch.Order;
+import bym.shop.elasticsearch.repository.OrderElasticSearchRepository;
 import bym.shop.entity.OrderEntity;
 import bym.shop.entity.OrderItemEntity;
 import bym.shop.exception.ResourceDeletedException;
@@ -31,7 +31,7 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
-    private final OrderInfoElasticSearchRepository orderInfoElasticSearchRepository;
+    private final OrderElasticSearchRepository orderElasticSearchRepository;
 
     public OrderResponseDto create(@NonNull final OrderRequestDto request) {
         final OrderEntity order = new OrderEntity();
@@ -53,8 +53,7 @@ public class OrderService {
         if (StringUtils.isEmpty(product)) {
             return CommonUtil.getByIds(ids, OrderResponseDto::from, orderRepository::findAllByDeletedIsNull, orderRepository::findAllByDeletedIsNullAndIdIn);
         }
-
-        final Collection<OrderInfo> orders = orderInfoElasticSearchRepository.findAllByProductsContaining(product);
+        final Collection<Order> orders = orderElasticSearchRepository.findAllByProductsContaining(product);
         return new CommonArrayResponseDto<>(orders.stream().map(OrderResponseDto::from).collect(Collectors.toList()));
     }
 
