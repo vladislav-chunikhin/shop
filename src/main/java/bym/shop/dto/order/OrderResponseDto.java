@@ -1,6 +1,7 @@
 package bym.shop.dto.order;
 
 import bym.shop.dto.ResponseDto;
+import bym.shop.elasticsearch.OrderInfo;
 import bym.shop.entity.OrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,6 +24,10 @@ public class OrderResponseDto implements ResponseDto {
 
     public static OrderResponseDto from(@NonNull final OrderEntity entity) {
         return new OrderResponseDto(entity.getId(), entity.getUserId(), entity.getTotalAmount());
+    }
+
+    public static OrderResponseDto from(@NonNull final OrderInfo order) {
+        return new OrderResponseDto(order.getOrderId(), order.getUserId(), order.getTotalAmount());
     }
 
 }

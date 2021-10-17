@@ -75,7 +75,7 @@ public class OrderController {
         orderService.update(UUID.fromString(id), request);
     }
 
-    @Operation(summary = "API to get orders by identifiers")
+    @Operation(summary = "API to get orders by identifiers or a product name")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
@@ -89,8 +89,11 @@ public class OrderController {
             )
     })
     @GetMapping
-    public CommonArrayResponseDto<OrderResponseDto> get(@RequestParam(required = false) final Collection<String> ids) {
-        return orderService.get(ids);
+    public CommonArrayResponseDto<OrderResponseDto> get(
+            @RequestParam(required = false) final Collection<String> ids,
+            @RequestParam(required = false) final String product
+    ) {
+        return orderService.get(ids, product);
     }
 
     @Operation(summary = "API to delete an order (soft delete)")

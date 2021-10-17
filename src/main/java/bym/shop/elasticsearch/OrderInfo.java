@@ -4,6 +4,7 @@ import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Document(indexName = "order")
@@ -16,6 +17,8 @@ public class OrderInfo {
     private UUID orderId;
 
     private UUID userId;
+
+    private BigDecimal totalAmount;
 
     private String products;
 
