@@ -48,6 +48,8 @@ public class OrderService {
     public void delete(@NonNull final UUID id) {
         final OrderEntity order = orderRepository.findByIdAndDeletedIsNull(id).orElseThrow(() -> new EntityNotFoundException("Order is not found"));
         if (order.getDeleted() != null) throw new ResourceDeletedException("Order has already been deleted");
+        order.setDeleted(LocalDateTime.now());
+        orderRepository.save(order);
 
         final Collection<OrderItemEntity> items = orderItemRepository.findAllByOrderIdAndDeletedIsNull(id);
         if (!CollectionUtils.isEmpty(items)) {

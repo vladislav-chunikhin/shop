@@ -2,9 +2,7 @@ package bym.shop;
 
 import bym.shop.dto.RequestDto;
 import bym.shop.elasticsearch.repository.OrderInfoElasticSearchRepository;
-import bym.shop.repository.CategoryRepository;
-import bym.shop.repository.ProductRepository;
-import bym.shop.repository.UserRepository;
+import bym.shop.repository.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -38,6 +36,12 @@ public abstract class BaseIntegrationTest {
 
     @Autowired
     protected OrderInfoElasticSearchRepository orderInfoElasticSearchRepository;
+
+    @Autowired
+    protected OrderRepository orderRepository;
+
+    @Autowired
+    protected OrderItemRepository orderItemRepository;
 
     protected ObjectMapper mapper = new ObjectMapper();
 
