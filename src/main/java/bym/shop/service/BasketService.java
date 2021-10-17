@@ -77,7 +77,7 @@ public class BasketService {
         orderInfo.setId(UUID.randomUUID());
         orderInfo.setOrderId(orderId);
         orderInfo.setUserId(order.getUserId());
-        orderInfo.setProducts(products.stream().map(ProductEntity::getName).collect(Collectors.joining(",")));
+        orderInfo.setProducts(products.stream().map(ProductEntity::getName).collect(Collectors.toList()));
         orderInfo.setTotalAmount(order.getTotalAmount());
         orderInfoElasticSearchRepository.save(orderInfo);
     }

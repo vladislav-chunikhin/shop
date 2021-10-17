@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.UUID;
 
 @Document(indexName = "order")
@@ -20,6 +21,6 @@ public class OrderInfo {
 
     private BigDecimal totalAmount;
 
-    private String products;
+    private Collection<String> products;
 
 }
