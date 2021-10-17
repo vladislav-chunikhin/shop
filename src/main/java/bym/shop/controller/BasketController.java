@@ -98,4 +98,22 @@ public class BasketController {
     public void delete(@PathVariable final String id) {
         basketService.delete(UUID.fromString(id));
     }
+
+    @Operation(summary = "API to get a basket by identifier")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Getting successful",
+                    content = {@Content(schema = @Schema(implementation = CommonArrayResponseDto.class))}
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "Invalid order ID format",
+                    content = {@Content(schema = @Schema(implementation = ErrorResponseDto.class))}
+            )
+    })
+    @GetMapping("/{id}")
+    public CommonArrayResponseDto<BasketResponseDto> get(@PathVariable final String id) {
+        return basketService.get(UUID.fromString(id));
+    }
 }

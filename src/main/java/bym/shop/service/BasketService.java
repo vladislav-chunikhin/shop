@@ -125,4 +125,9 @@ public class BasketService {
         orderItem.setPrice(price.multiply(BigDecimal.valueOf(orderItemDto.getQuantity())));
         return orderItem;
     }
+
+    public CommonArrayResponseDto<BasketResponseDto> get(@NonNull final UUID id) {
+        final Collection<OrderItemEntity> items = orderItemRepository.findAllByOrderIdAndDeletedIsNull(id);
+        return new CommonArrayResponseDto<>(items.stream().map(BasketResponseDto::from).collect(Collectors.toList()));
+    }
 }
