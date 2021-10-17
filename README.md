@@ -4,7 +4,7 @@
 Vladislav Chunikhin
 
 ## Shop
-Test task that requires create a Spring-boot service application with REST CRUD methods for the following entities:
+A test task that requires create a Spring-boot service application with REST CRUD methods for the following entities:
 Category, Product, Order and OrderItem.
 
 - Category contains: name and a list of products.
