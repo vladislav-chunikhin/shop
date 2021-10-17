@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @Profile("test")
-public class DbConfig {
+public class DbTestConfig {
 
     @Bean
     public DataSource dataSource() {

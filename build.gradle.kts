@@ -29,6 +29,7 @@ dependencies {
     // Tests
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.testcontainers:postgresql:1.16.0")
+    testImplementation("org.testcontainers:elasticsearch:1.16.0")
 
     // Other
     compileOnly("org.projectlombok:lombok")
