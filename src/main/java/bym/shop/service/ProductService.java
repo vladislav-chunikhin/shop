@@ -42,10 +42,9 @@ public class ProductService {
         setFields(request, product);
         productRepository.save(product);
 
-        final Collection<OrderItemEntity> items = orderItemRepository.findAllByDeletedIsNullAndProductId(product.getId());
-        final List<UUID> orderIds = items.stream().map(OrderItemEntity::getOrderId).collect(Collectors.toList());
-
         if (!oldProductName.equals(product.getName())) {
+            final Collection<OrderItemEntity> items = orderItemRepository.findAllByDeletedIsNullAndProductId(product.getId());
+            final List<UUID> orderIds = items.stream().map(OrderItemEntity::getOrderId).collect(Collectors.toList());
             orderElasticSearchService.updateOrders(orderIds, oldProductName, product.getName());
         }
     }
