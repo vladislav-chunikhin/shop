@@ -29,7 +29,7 @@ public class ReportGettingIntegrationTest extends BaseIntegrationTest {
     @SqlAfter("/sql/report/delete-data.sql")
     @Test
     public void reportGettingInTheUsualCase() throws Exception {
-        final LocalDate to = LocalDate.now();
+        final LocalDate to = LocalDate.of(2021, 10, 17);
         final LocalDate from = to.minusDays(3);
 
         final ResultActions res = executeGet(REPORT_BASE_URL + "?from=" + from + "&to=" + to);

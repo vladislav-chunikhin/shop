@@ -16,11 +16,11 @@ VALUES ('f7ef3015-1215-432a-a055-34033f01de59', 'Vladislav Chunikhin'),
        ('485da2e8-df14-4331-88bf-9b33aea18f86', 'Zera Wood');
 
 INSERT INTO amazon.orders(id, user_id, total_amount, created)
-VALUES ('53204f67-4563-4e48-8af0-d253d15e31c9', 'f7ef3015-1215-432a-a055-34033f01de59', 36, now()),
-       ('cfcd8281-8c2f-4181-bd15-57d16d6cf4bd', 'f7ef3015-1215-432a-a055-34033f01de59', 38, now()),
-       ('5879cb93-d63a-464b-89ab-90fc94d77012', 'f7ef3015-1215-432a-a055-34033f01de59', 58, now() - INTERVAL '3 DAY'),
-       ('8718be0a-fca0-42ce-b72d-7c5e76705715', 'f7ef3015-1215-432a-a055-34033f01de59', 58, now() - INTERVAL '1 DAY'),
-       ('777acc1f-a93c-4d4f-9733-a9650b8a62f0', 'f7ef3015-1215-432a-a055-34033f01de59', 58, now() - INTERVAL '5 DAY');
+VALUES ('53204f67-4563-4e48-8af0-d253d15e31c9', 'f7ef3015-1215-432a-a055-34033f01de59', 36, '2021-10-17 06:48:46.427165'),
+       ('cfcd8281-8c2f-4181-bd15-57d16d6cf4bd', 'f7ef3015-1215-432a-a055-34033f01de59', 38, '2021-10-17 06:48:46.427165'),
+       ('5879cb93-d63a-464b-89ab-90fc94d77012', 'f7ef3015-1215-432a-a055-34033f01de59', 58, '2021-10-14 06:48:46.427165'),
+       ('8718be0a-fca0-42ce-b72d-7c5e76705715', 'f7ef3015-1215-432a-a055-34033f01de59', 58, '2021-10-16 06:48:46.427165'),
+       ('777acc1f-a93c-4d4f-9733-a9650b8a62f0', 'f7ef3015-1215-432a-a055-34033f01de59', 58, '2021-10-12 06:48:46.427165');
 
 INSERT INTO amazon.order_items(id, price, quantity, product_id, order_id)
 VALUES ('1d2a2330-3dee-4e20-a755-249fe2b02710', 10, 1, '4d4b6161-dd5f-410a-83cc-41b247452f3e', '53204f67-4563-4e48-8af0-d253d15e31c9'),
